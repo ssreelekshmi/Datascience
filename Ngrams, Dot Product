@@ -1,0 +1,182 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN6iJvyXDMWoVAy+DusD4SL",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ssreelekshmi/Datascience/blob/main/Ngrams%2C%20Dot%20Product\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_pXIdZmz6QWT",
+        "outputId": "70262525-2bfb-482f-b49b-0f7cf1f7c4b7"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "[nltk_data] Downloading package punkt to /root/nltk_data...\n",
+            "[nltk_data]   Package punkt is already up-to-date!\n",
+            "[nltk_data] Downloading package averaged_perceptron_tagger to\n",
+            "[nltk_data]     /root/nltk_data...\n",
+            "[nltk_data]   Package averaged_perceptron_tagger is already up-to-\n",
+            "[nltk_data]       date!\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter the sentencei am studing\n",
+            "Enter the value of n:2\n",
+            "ngrams.printing\n",
+            "('i', 'am')\n",
+            "('am', 'studing')\n",
+            "tokens printing\n",
+            "['i', 'am', 'studing']\n",
+            "['i am studing']\n",
+            "[('i', 'NN'), ('am', 'VBP'), ('studing', 'VBG')]\n",
+            "i : i\n",
+            "am : am\n",
+            "studing : stude\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "[nltk_data] Downloading package wordnet to /root/nltk_data...\n",
+            "[nltk_data]   Package wordnet is already up-to-date!\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "import nltk\n",
+        "nltk.download('punkt')\n",
+        "nltk.download('averaged_perceptron_tagger')\n",
+        "from nltk import ngrams\n",
+        "sentence= input(\"Enter the sentence\")\n",
+        "n=int(input(\"Enter the value of n:\"))\n",
+        "n_grams=ngrams(sentence.split(),n)\n",
+        "print(\"ngrams.printing\")\n",
+        "for grams in n_grams:\n",
+        "  print(grams)\n",
+        "\n",
+        "from nltk import word_tokenize,sent_tokenize\n",
+        "print(\"tokens printing\")\n",
+        "print(word_tokenize(sentence))\n",
+        "print(sent_tokenize(sentence))\n",
+        "\n",
+        "from nltk import pos_tag\n",
+        "tokenized_text=word_tokenize(sentence)\n",
+        "tags=tokens_tag=pos_tag(tokenized_text)\n",
+        "print(tags)\n",
+        "nltk.download('wordnet')\n",
+        "from nltk.stem import WordNetLemmatizer\n",
+        "from nltk.stem import PorterStemmer\n",
+        "ps= PorterStemmer()\n",
+        "for w in tokenized_text:\n",
+        "  print(w,\":\",ps.stem(w))"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "INHOjBHavNIo"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "def create_matrix(mc):\n",
+        "  print(\"Array\"+str(mc)+\"elements\")\n",
+        "  array_1=map(int,input().split())\n",
+        "  array_1=np.array(list(array_1))\n",
+        "  print(\"\\n array\"+str(mc)+\"Rowcolumn:\")\n",
+        "  row,column=map(int,input().split())\n",
+        "  if(len(array_1)!=(row*column)):\n",
+        "    print(\"Row_column size do not match\")\n",
+        "    return create_matrix(mc)\n",
+        "  array_1=array_1.reshape(row,column)\n",
+        "  print(\"\\n array\"+str(mc))\n",
+        "  print(array_1)\n",
+        "  return(array_1)\n",
+        "arr1=create_matrix(1)\n",
+        "arr2=create_matrix(2)\n",
+        "if(arr1.shape==arr2.shape):\n",
+        "   print(\"dot product\")\n",
+        "   print(np.dot(arr1,arr2))\n",
+        "else:\n",
+        "  print(\"Dimension do not match\")"
+      ],
+      "metadata": {
+        "id": "yXznzyel7448",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "304a949d-2b27-42c4-b5eb-cd68917e3178"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Array1elements\n",
+            "1 2 3 4\n",
+            "\n",
+            " array1Rowcolumn:\n",
+            "2 2\n",
+            "\n",
+            " array1\n",
+            "[[1 2]\n",
+            " [3 4]]\n",
+            "Array2elements\n",
+            "5 6 7 8\n",
+            "\n",
+            " array2Rowcolumn:\n",
+            "2 2\n",
+            "\n",
+            " array2\n",
+            "[[5 6]\n",
+            " [7 8]]\n",
+            "dot product\n",
+            "[[19 22]\n",
+            " [43 50]]\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
